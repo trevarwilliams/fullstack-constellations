@@ -1,0 +1,14 @@
+{
+  "name": "constellation-companion",
+  "version": "1.0.0",
+  "description": "Constellation finding companion",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Trevar Williams",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
