@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
   fullname: { type: String, default: "" },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true }
-})
+});
 
 const constellationSchema = mongoose.Schema({
   name: { type: String, required: true },
