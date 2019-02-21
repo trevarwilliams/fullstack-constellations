@@ -20,7 +20,7 @@ describe("Index test", function() {
   });
 });
 
-describe("Constellation list test", function () {
+/*describe("Constellation list test", function () {
   it("should serve constellation-list.html", function () {
     return chai
       .request(app)
@@ -29,4 +29,4 @@ describe("Constellation list test", function () {
         expect(res).to.have.status(200);
       });
   });
-});
+});*/
