@@ -9,7 +9,7 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe("initial test", function() {
+describe("Index test", function() {
   it("should serve index.html", function() {
     return chai
       .request(app)
@@ -19,3 +19,14 @@ describe("initial test", function() {
       });
   });
 });
+
+/*describe("Constellation list test", function () {
+  it("should serve constellation-list.html", function () {
+    return chai
+      .request(app)
+      .get("/list")
+      .then(function (res) {
+        expect(res).to.have.status(200);
+      });
+  });
+});*/
