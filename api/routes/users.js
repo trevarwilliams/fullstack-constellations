@@ -6,4 +6,4 @@ const User = require("../models.js");
 
 const router = express.Router();
 
-//need get(?) / post
+//need get(?) / post / patch / delete
