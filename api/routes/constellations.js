@@ -9,9 +9,8 @@ const Constellation = require("../models/constellations");
 // Get all constellations
 router.get("/", (req, res, next) => {
   Constellation.find()
-    .then(docs => {
-      console.log(docs);
-      res.status(200).json(docs);
+    .then(constellations => {
+      res.status(200).json(constellations);
     })
     .catch(err => {
       console.log(err);
@@ -26,10 +25,9 @@ router.get('/:constellationId', (req, res, next) => {
   const id = req.params.constellationId;
 
   Constellation.findById(id)
-    .exec()
-    .then(doc => {
-      console.log(doc);
-      res.status(200).json(doc);
+    .then(constellation => {
+      console.log(constellation);
+      res.status(200).json(constellation);
     })
     .catch(err => {
       console.log(err)
