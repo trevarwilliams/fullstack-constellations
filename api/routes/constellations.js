@@ -13,7 +13,6 @@ router.get("/", (req, res, next) => {
       res.status(200).json(constellations);
     })
     .catch(err => {
-      console.log(err);
       res.status(500).json({
         error: err
       });
@@ -21,21 +20,24 @@ router.get("/", (req, res, next) => {
 });
 
 // Get specific constellation by id
-router.get('/:constellationId', (req, res, next) => {
+router.get("/:constellationId", (req, res, next) => {
   const id = req.params.constellationId;
 
   Constellation.findById(id)
     .then(constellation => {
-      console.log(constellation);
-      res.status(200).json(constellation);
+      if (constellation) {
+        res.status(200).json(constellation);
+      } else {
+        res.status(404).json({ message: "No entry found with provided id" });
+      }
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       res.status(500).json({ error: err });
     });
 });
 
-// Create new constellation
+/* // Create new constellation
 router.post("/", (req, res, next) => {
   const constellation = new Constellation({
     _id: new mongoose.Types.ObjectId(),
@@ -43,16 +45,19 @@ router.post("/", (req, res, next) => {
     info: req.body.info,
     location: req.body.location
   });
-  product
+  constellation
     .save()
     .then(result => {
-      console.log(result);
+      res.status(200).json({
+        message: "Handling POST requests to /constellations",
+        newConstellation: result
+      });
     })
-    .cath(err => console.log(err));
-  res.status(200).json({
-    message: 'Handling POST requests to /constellations',
-    newConstellation: constellation
-  })
-});
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
+}); */
 
 module.exports = router;
