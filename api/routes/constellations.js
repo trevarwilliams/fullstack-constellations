@@ -40,16 +40,14 @@ router.get("/:constellationId", (req, res, next) => {
 /* // Create new constellation
 router.post("/", (req, res, next) => {
   const constellation = new Constellation({
-    _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
     info: req.body.info,
     location: req.body.location
   });
   constellation
-    .save()
+    .create()
     .then(result => {
       res.status(200).json({
-        message: "Handling POST requests to /constellations",
         newConstellation: result
       });
     })
