@@ -9,5 +9,4 @@ const constellationSchema = new mongoose.Schema({
   location: { type: String, required: true }
 });
 
-const Constellation = mongoose.model("Constellation", constellationSchema);
-module.exports = { Constellation };
+module.exports = mongoose.model("Constellation", constellationSchema);
