@@ -3,9 +3,9 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
 const app = express();
+app.use(express.json());
 
 // Routers
 const constellationRouter = require("./api/routes/constellations");
@@ -27,8 +27,6 @@ app.use(
   })
 );
 
-// Body parser
-app.use(bodyParser.json());
 
 // Create static webserver
 app.use(express.static("public"));
