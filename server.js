@@ -1,5 +1,8 @@
 "use strict";
 
+// travis.yml -> set up travis testing for mongo: service/mongo
+// export mlab -> import local
+
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
@@ -11,22 +14,18 @@ app.use(express.json());
 const constellationRouter = require("./api/routes/constellations");
 const usersRouter = require("./api/routes/users");
 
-mongoose.connect(
-  "mongodb://constellation-user:" +
-    process.env.DATABASE_PW +
-    "@ds347665.mlab.com:47665/constellation-companion-db",
-  {
-    useNewUrlParser: true
-  }
-);
+const { MONGODB_URI } = require("./config");
 
-// Log all requests
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true
+});
+
+// Log all requests, skip during testing
 app.use(
   morgan(process.env.NODE_ENV === "development" ? "dev" : "common", {
     skip: () => process.env.NODE_ENV === "test"
   })
 );
-
 
 // Create static webserver
 app.use(express.static("public"));
