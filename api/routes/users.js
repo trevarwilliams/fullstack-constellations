@@ -8,8 +8,6 @@ mongoose.Promise = global.Promise;
 
 const User = require("../models/users");
 
-//need get(?) / post / patch / delete
-
 // Get users
 router.get("/", (req, res, next) => {
   User.find()
@@ -55,6 +53,50 @@ router.post("/", (req, res, next) => {
       res.status(500).json({
         error: err
       });
+    });
+});
+
+// Delete user
+
+// Add found constellation
+router.put("/:userId", (req, res, next) => {
+  const userId = req.params.userId;
+  const constellationId = req.body._id;
+
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $push: { found: constellationId }
+    },
+    { new: true }
+  )
+    .then(result => {
+      res.status(204).end();
+    })
+    .catch(err => {
+      console.log(err.message);
+      res.status(500).json({ message: "Internal server error" });
+    });
+});
+
+// Remove found constellation
+router.delete("/:userId", (req, res, next) => {
+  const constellationId = req.body._id;
+  const userId = req.params.userId;
+
+  User.findByIdAndUpdate(
+    userId,
+    {
+      $pull: { found: constellationId }
+    },
+    { new: true }
+  )
+    .then(result => {
+      res.status(204).end();
+    })
+    .catch(err => {
+      console.log(err.message);
+      res.status(500).json({ message: "Internal server error" });
     });
 });
 
