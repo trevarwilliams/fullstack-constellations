@@ -4,18 +4,15 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 
-const app = express();
-app.use(express.json());
+const { MONGODB_URI } = require("./config");
+const jwtAuth = require("./api/middleware/jwt-auth");
 
 // Routers
 const constellationRouter = require("./api/routes/constellations");
 const usersRouter = require("./api/routes/users");
+const authRouter = require("./api/routes/auth");
 
-const { MONGODB_URI } = require("./config");
-
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true
-});
+const app = express();
 
 // Log all requests, skip during testing
 app.use(
@@ -27,9 +24,19 @@ app.use(
 // Create static webserver
 app.use(express.static("public"));
 
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true
+});
+
+app.use(express.json());
+
 // Request handling routes
+// Public
+app.use("/", authRouter);
 app.use("/constellations", constellationRouter);
-app.use("/users", usersRouter);
+
+// Protected
+app.use("/users", jwtAuth, usersRouter);
 
 // Error handling
 app.use((req, res, next) => {
