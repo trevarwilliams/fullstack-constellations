@@ -23,12 +23,20 @@ router.get("/", (req, res, next) => {
 router.get("/:constellationId", (req, res, next) => {
   const id = req.params.constellationId;
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const err = new Error("The provided id is not valid");
+    err.status = 400;
+    return next(err);
+  }
+
   Constellation.findById(id)
     .then(constellation => {
-      if (constellation) {
-        res.status(200).json(constellation);
+      if (constellation == null) {
+        const err = new Error("The provided id is not valid");
+        err.status = 400;
+        return next(err);
       } else {
-        res.status(404).json({ message: "No entry found with provided id" });
+        res.status(200).json(constellation);
       }
     })
     .catch(err => {
