@@ -1,8 +1,5 @@
 "use strict";
 
-// travis.yml -> set up travis testing for mongo: service/mongo
-// export mlab -> import local
-
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
