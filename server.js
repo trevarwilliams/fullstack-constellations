@@ -32,7 +32,7 @@ app.use(express.json());
 
 // Request handling routes
 // Public
-app.use("/", authRouter);
+app.use("/login", authRouter);
 app.use("/constellations", constellationRouter);
 
 // Protected
