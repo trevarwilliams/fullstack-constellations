@@ -8,7 +8,8 @@
   },
   "main": "server.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha"
+    "start": "node server.js",
+    "test": "cross-env NODE_ENV=test mocha --file test/server.js"
   },
   "author": "Trevar Williams",
   "license": "ISC",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
+    "cross-env": "^5.2.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.10"
   }
