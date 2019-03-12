@@ -24,19 +24,21 @@ app.use(
 // Create static webserver
 app.use(express.static("public"));
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true
-});
+if (process.env.NODE_ENV !== "test") {
+  mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true
+  });
+}
 
 app.use(express.json());
 
 // Request handling routes
 // Public
-app.use("/login", authRouter);
+app.use("/", authRouter);
 app.use("/constellations", constellationRouter);
 
 // Protected
-app.use("/users", jwtAuth, usersRouter);
+app.use("/users", usersRouter);
 
 // Error handling
 app.use((req, res, next) => {
