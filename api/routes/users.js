@@ -2,6 +2,8 @@
 
 const express = require("express");
 const mongoose = require("mongoose");
+const jwtAuth = require("../middleware/jwt-auth");
+
 const router = express.Router();
 
 mongoose.Promise = global.Promise;
@@ -9,7 +11,7 @@ mongoose.Promise = global.Promise;
 const User = require("../models/users");
 
 // Get user
-router.get("/", (req, res, next) => {
+router.get("/", jwtAuth, (req, res, next) => {
   User.find()
     .then(users => {
       res.status(200).json(users);
@@ -22,7 +24,7 @@ router.get("/", (req, res, next) => {
 });
 
 // Get specific user by id
-router.get("/:userId", (req, res, next) => {
+router.get("/:userId", jwtAuth, (req, res, next) => {
   const id = req.params.userId;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -128,7 +130,7 @@ router.post("/", (req, res, next) => {
 });
 
 // Delete user
-router.delete("/:userId", (req, res, next) => {
+router.delete("/:userId", jwtAuth, (req, res, next) => {
   const userId = req.params.userId;
   const deleteId = req.body._id;
 
@@ -148,7 +150,7 @@ router.delete("/:userId", (req, res, next) => {
 });
 
 // Add found constellation
-router.put("/:userId", (req, res, next) => {
+router.put("/:userId", jwtAuth, (req, res, next) => {
   const userId = req.params.userId;
   const constellationId = req.body._id;
 
@@ -176,7 +178,7 @@ router.put("/:userId", (req, res, next) => {
 });
 
 // Remove found constellation
-router.delete("/:userId", (req, res, next) => {
+router.delete("/:userId", jwtAuth, (req, res, next) => {
   const constellationId = req.body._id;
   const userId = req.params.userId;
 
